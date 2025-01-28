@@ -135,7 +135,7 @@ class WeatherService {
       const forecastWeatherDataArray:Weather[] = [];
 
       // with i = 2; 5 day forecast is displayed for noon
-      for (let i = 2; i < data.cnt; i=i+8) {
+      for (let i = 0; i < data.cnt; i=i+8) {
         const tempF = data.list[i].main.temp;
         const humidity = data.list[i].main.humidity;
         const date = data.list[i].dt_txt.split(' ')[0];
@@ -194,11 +194,13 @@ class WeatherService {
       const weatherArray = [...currentWeatherArray, ...forecastWeatherArray];
 
       console.log(weatherArray);
+      console.log(`--------------------`);
+      
       
       return weatherArray;
 
     }else{
-      throw new Error("Weather Api is down");
+      throw new Error("Weather Api is down or wrong city name");
     }
   }
 }
