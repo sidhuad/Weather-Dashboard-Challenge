@@ -95,7 +95,7 @@ class WeatherService {
     try {
       
       const city = data.name;
-      const date = new Date().toISOString().split('T')[0];
+      const date = new Date(data.dt * 1000).toISOString().split('T')[0];
       const tempF = data.main.temp;
       const windSpeed = data.wind.speed;
       const humidity = data.main.humidity;
@@ -116,6 +116,8 @@ class WeatherService {
       }
       
       currentWeatherDataArray.push(currentWeatherForecast);
+      console.log(date);
+      
       return currentWeatherDataArray;
       // console.log(currentWeatherDataArray);
 
@@ -135,7 +137,7 @@ class WeatherService {
       const forecastWeatherDataArray:Weather[] = [];
 
       // with i = 2; 5 day forecast is displayed for noon
-      for (let i = 0; i < data.cnt; i=i+8) {
+      for (let i = 3; i < data.cnt; i=i+8) {
         const tempF = data.list[i].main.temp;
         const humidity = data.list[i].main.humidity;
         const date = data.list[i].dt_txt.split(' ')[0];
@@ -193,14 +195,15 @@ class WeatherService {
 
       const weatherArray = [...currentWeatherArray, ...forecastWeatherArray];
 
-      console.log(weatherArray);
-      console.log(`--------------------`);
+      // console.log(weatherArray);
+      // console.log(`--------------------`);
       
       
       return weatherArray;
 
     }else{
-      throw new Error("Weather Api is down or wrong city name");
+      console.error("Weather Api is down or wrong city name");
+      return [];
     }
   }
 }
