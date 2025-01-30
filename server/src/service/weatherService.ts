@@ -1,4 +1,4 @@
-import  { type Dayjs } from 'dayjs';
+import  dayjs, { type Dayjs } from 'dayjs';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -95,7 +95,8 @@ class WeatherService {
     try {
       
       const city = data.name;
-      const date = new Date(data.dt * 1000).toISOString().split('T')[0];
+      const unixDate = data.dt;
+      const date = dayjs.unix(unixDate).format(`YYYY-MM-DD`);
       const tempF = data.main.temp;
       const windSpeed = data.wind.speed;
       const humidity = data.main.humidity;
@@ -116,7 +117,7 @@ class WeatherService {
       }
       
       currentWeatherDataArray.push(currentWeatherForecast);
-      console.log(date);
+      console.log(`current weather date ${date}`);
       
       return currentWeatherDataArray;
       // console.log(currentWeatherDataArray);
@@ -137,10 +138,11 @@ class WeatherService {
       const forecastWeatherDataArray:Weather[] = [];
 
       // with i = 2; 5 day forecast is displayed for noon
-      for (let i = 3; i < data.cnt; i=i+8) {
+      for (let i = 0; i < data.cnt; i=i+8) {
         const tempF = data.list[i].main.temp;
         const humidity = data.list[i].main.humidity;
-        const date = data.list[i].dt_txt.split(' ')[0];
+        const unixDate = data.list[i].dt;
+        const date = dayjs.unix(unixDate).format(`YYYY-MM-DD`);
         const icon = data.list[i].weather[0].icon;
         const iconDescription = data.list[i].weather[0].description;
         const windSpeed = data.list[i].wind.speed;
@@ -159,11 +161,14 @@ class WeatherService {
           icon,
           iconDescription
           
-        }
+        }        
+        
         forecastWeatherDataArray.push(forecastWeatherData);
       }
-      // console.log(forecastWeatherDataArray);
-      // console.log(data.city.name);
+      console.log(data.list[0].dt_txt);
+      console.log(dayjs.unix(data.list[0].dt).format(`YYYY-MM-DD`));
+      
+      console.log(`------------------------`);
       return forecastWeatherDataArray; 
       
     } catch (error) {
