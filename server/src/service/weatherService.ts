@@ -161,12 +161,16 @@ class WeatherService {
           icon,
           iconDescription
           
-        }        
+        }
+
+        console.log('');        
+        console.log("5day "+data.list[i].dt_txt);
+        console.log('5day daysjs '+dayjs.unix(data.list[i].dt).format(`YYYY-MM-DD`));
+        console.log('');
         
         forecastWeatherDataArray.push(forecastWeatherData);
       }
-      console.log(data.list[0].dt_txt);
-      console.log(dayjs.unix(data.list[0].dt).format(`YYYY-MM-DD`));
+      
       
       console.log(`------------------------`);
       return forecastWeatherDataArray; 
