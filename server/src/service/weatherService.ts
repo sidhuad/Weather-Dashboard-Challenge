@@ -117,7 +117,7 @@ class WeatherService {
       }
       
       currentWeatherDataArray.push(currentWeatherForecast);
-      console.log(`current weather date ${date}`);
+      console.log(`current weather date ${date} data.dat is ${data.dt}`);
       
       return currentWeatherDataArray;
       // console.log(currentWeatherDataArray);
@@ -138,7 +138,7 @@ class WeatherService {
       const forecastWeatherDataArray:Weather[] = [];
 
       // with i = 2; 5 day forecast is displayed for noon
-      for (let i = 0; i < data.cnt; i=i+8) {
+      for (let i = 4; i < data.cnt; i=i+8) {
         const tempF = data.list[i].main.temp;
         const humidity = data.list[i].main.humidity;
         const unixDate = data.list[i].dt;
