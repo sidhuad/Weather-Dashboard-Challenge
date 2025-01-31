@@ -97,7 +97,7 @@ class WeatherService {
       const city = data.name;
       const unixDate = data.dt + data.timezone;
       // const date = dayjs.unix(unixDate).format(`YYYY-MM-DD HH:mm:ss`);
-      const date = new Date((unixDate * 1000)).toISOString();
+      const date = new Date((unixDate * 1000)).toISOString().split('T')[0];
       const tempF = data.main.temp;
       const windSpeed = data.wind.speed;
       const humidity = data.main.humidity;
