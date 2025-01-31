@@ -95,8 +95,9 @@ class WeatherService {
     try {
       
       const city = data.name;
-      const unixDate = data.dt - 10800;
-      const date = dayjs.unix(unixDate).format(`YYYY-MM-DD HH:mm:ss`);
+      const unixDate = data.dt + data.timezone;
+      // const date = dayjs.unix(unixDate).format(`YYYY-MM-DD HH:mm:ss`);
+      const date = new Date((unixDate * 1000)).toISOString();
       const tempF = data.main.temp;
       const windSpeed = data.wind.speed;
       const humidity = data.main.humidity;
@@ -117,7 +118,7 @@ class WeatherService {
       }
       
       currentWeatherDataArray.push(currentWeatherForecast);
-      console.log(`current weather date ${date} data.dat is ${data.dt}`);
+      console.log(`current weather date ${date} data.dat is ${data.dt} unix time ${unixDate}`);
       
       return currentWeatherDataArray;
       // console.log(currentWeatherDataArray);
