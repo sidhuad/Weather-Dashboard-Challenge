@@ -95,7 +95,7 @@ class WeatherService {
     try {
       
       const city = data.name;
-      const unixDate = data.dt;
+      const unixDate = data.dt - 10800;
       const date = dayjs.unix(unixDate).format(`YYYY-MM-DD HH:mm:ss`);
       const tempF = data.main.temp;
       const windSpeed = data.wind.speed;
